@@ -1,7 +1,7 @@
 {
   "name": "players-api-skeleton",
   "version": "1.0.0",
-  "description": "## Instructions",
+  "description": "API backend assessment for Alchemy at P&G",
   "main": "index.js",
   "directories": {
     "test": "test"
@@ -9,7 +9,7 @@
   "scripts": {
     "test": "mocha test/**/*.spec.js"
   },
-  "author": "Steven White <steven@galchemy.codes>",
+  "author": "James Nguyen <amazinzygy@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "babel-eslint": "^7.2.3",
@@ -20,5 +20,9 @@
     "mocha": "^3.4.2",
     "sinon": "^2.3.4",
     "sinon-chai": "^2.11.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
   }
 }
