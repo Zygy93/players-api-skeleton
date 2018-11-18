@@ -22,7 +22,13 @@
     "sinon-chai": "^2.11.0"
   },
   "dependencies": {
+    "bcrypt": "^3.0.2",
     "body-parser": "^1.18.3",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "express-jwt": "^5.3.1",
+    "express-jwt-permissions": "^1.2.3",
+    "express-validator": "^5.3.0",
+    "jsonwebtoken": "^8.4.0",
+    "pg-promise": "^8.5.2"
   }
 }
