@@ -1,11 +1,22 @@
-const pgp = require('pg-promise');
 
-const user = process.env.PG_USER || '';
-const password = process.env.PG_PASSWORD || '';
-const database = process.env.PG_DB || 'postgres';
-const host = process.env.PG_HOST || 'localhost';
-const port = process.env.PG_PORT || '5432';
+const pgp = require('pg-ptomise');
 
-const config = pgp({ user, password, database, host, port });
+let config = {};
+config = {
+  host: 'localhost', // Server hosting the postgres database
+  port: 5432, // env var: PGPORT
+  database: 'postgres', // CHANGE THIS LINE! env var: PGDATABASE, this is likely the one thing you need to change to get up and running
+  max: 10, // max number of clients in the pool
+  idleTimeoutMillis: 30000 // how long a client is allowed to remain idle before being closed
+};
 
-module.exports = new pgp.Pool(config);
+const pool = new pgp.Pool(config);
+
+// the pool with emit an error on behalf of any idle clients
+// it contains if a backend error or network partition happens
+pool.on('error', (err) => {
+  console.log('Unexpected error on idle client', err);
+  process.exit(-1);
+});
+
+module.exports = pool;
