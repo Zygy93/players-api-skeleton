@@ -1,5 +1,4 @@
-
+const User = require('./user');
 module.exports = {
-  Player: {},
-  User: {}
+  User
 };
