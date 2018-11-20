@@ -1,5 +1,8 @@
 
 const { check, validationResult } = require('express-validator/check');
+//express-validator is a set of express.js middlewares that wraps validator.js validator and sanitizes functions.
+//The exists() method only checks that one of the items in the array
+//The trim() method removes whitespace from both sides of a string
 
 const validateUser = [
   check('first_name').exists().trim(),
