@@ -1,22 +1,31 @@
+const pool = require('pg-promise')();
+const PQ = require('pg-promise').ParameterizedQuery;
 
-const pgp = require('pg-ptomise');
+const user = process.env.PG_USER || '';
+const password = process.env.PG_PASSWORD || '';
+const database = process.env.PG_DB || 'postgres';
+const host = process.env.PG_HOST || 'localhost';
+const port = process.env.PG_PORT || '5432';
 
-let config = {};
-config = {
-  host: 'localhost', // Server hosting the postgres database
-  port: 5432, // env var: PGPORT
-  database: 'postgres', // CHANGE THIS LINE! env var: PGDATABASE, this is likely the one thing you need to change to get up and running
-  max: 10, // max number of clients in the pool
-  idleTimeoutMillis: 30000 // how long a client is allowed to remain idle before being closed
-};
+const config = pool({ user, password, database, host, port });
 
-const pool = new pgp.Pool(config);
+async function query(query, parameters) {
+  const findQuery = getQuery(query);
+  const queue = parameters ? new PQ(query, parameters) : query;
+  return await findQuery(queue);
+}
 
-// the pool with emit an error on behalf of any idle clients
-// it contains if a backend error or network partition happens
-pool.on('error', (err) => {
-  console.log('Unexpected error on idle client', err);
-  process.exit(-1);
-});
+function getQuery(query) {
+  const array = query.split(' ');
+  const type = array[0];
 
-module.exports = pool;
+  const functions = {
+    'SELECT': config.any,
+    'INSERT': config.one,
+    'default': config.query
+  };
+
+  return functions[type] || functions['default'];
+}
+
+module.exports = { query };
