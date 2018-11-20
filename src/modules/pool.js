@@ -4,10 +4,12 @@ const PQ = require('pg-promise').ParameterizedQuery;
 const user = process.env.PG_USER || '';
 const password = process.env.PG_PASSWORD || '';
 const database = process.env.PG_DB || 'postgres';
-const host = process.env.PG_HOST || 'localhost';
-const port = process.env.PG_PORT || '5432';
+const host = process.env.PG_HOST || 'localhost'; // Server hosting the postgres database
+const port = process.env.PG_PORT || '5432'; // env var: PGPORT
+//Configurations to use postgres SQL
 
 const config = pool({ user, password, database, host, port });
+// this creates the pool that will be shared by all other modules
 
 async function query(query, parameters) {
   const findQuery = getQuery(query);
@@ -23,9 +25,10 @@ function getQuery(query) {
     'SELECT': config.any,
     'INSERT': config.one,
     'default': config.query
-  };
+  };//These are the types of queries we are using
 
   return functions[type] || functions['default'];
 }
 
 module.exports = { query };
+//Exports the query to be used the routes

@@ -1,5 +1,5 @@
 const jwt = require('express-jwt');
-const { sign } = require('jsonwebtoken');
+const { sign } = require('jsonwebtoken'); // This creates the token being used
 
 const secret = process.env.JWT_SECRET || 'secret';
 
