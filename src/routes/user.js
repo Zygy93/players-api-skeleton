@@ -1,8 +1,9 @@
 const { Router } = require('express');
 const bcrypt = require('bcrypt');
 const { signToken } = require('../modules/auth');
+const jwt = require('express-jwt');
 const User = require('../models/user');
-const { validateUser, validateLogin } = require('../modules/validate');
+const { validateUser, validateLogin /*,validateUpdate*/ } = require('../modules/validate');
 const router = new Router();
 
 // Handles POST request with new user data
@@ -43,5 +44,13 @@ router.post('/login', validateLogin, async (req, res) => {
   delete user.password;
   res.status(200).json({ success: true, user, token });
 });
+
+router.put('/user/:userId', async (req, res) => {
+  const loggedInUser = req.params.userId;
+  const updatedUser = await loggedInUser.updateUser(req.body);
+  res.status(200).json({ success: true, updatedUser });
+});
+
+
 
 module.exports = router;
