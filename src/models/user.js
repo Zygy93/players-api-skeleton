@@ -20,10 +20,9 @@ const User = {
     const users = await query(`SELECT * FROM ${ table } WHERE email = $1`, [email]);
     return users[0]; // This query finds the user by email
   },
-
-  updateUser: async (first_name, last_name, id) => {
-    const users = await query(`UPDATE ${ table } SET (first_name, last_name) = ($1, $2) WHERE id = $3 RETURNING first_name, last_name`, [first_name, last_name, id]);
-    return users[0]; // This query finds the user by email
+  updateUser: async (first_name, last_name, email) => {
+    const updateUser = await query(`UPDATE ${ table } SET (first_name, last_name) = ($1, $2) WHERE email = $3 RETURNING first_name, last_name, id`, [first_name, last_name, email]);
+    return updateUser[0]; // This query updates the first and last name for a user
   }
 
 };

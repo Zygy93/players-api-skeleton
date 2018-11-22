@@ -1,9 +1,8 @@
 const { Router } = require('express');
 const bcrypt = require('bcrypt');
 const { signToken } = require('../modules/auth');
-const jwt = require('express-jwt');
 const User = require('../models/user');
-const { validateUser, validateLogin /*,validateUpdate*/ } = require('../modules/validate');
+const { validateUser, validateLogin } = require('../modules/validate');
 const router = new Router();
 
 // Handles POST request with new user data
@@ -46,9 +45,14 @@ router.post('/login', validateLogin, async (req, res) => {
 });
 
 router.put('/user/:userId', async (req, res) => {
-  const loggedInUser = req.params.userId;
-  const updatedUser = await loggedInUser.updateUser(req.body);
-  res.status(200).json({ success: true, updatedUser });
+  let updatedUser;
+  console.log(req.body);
+  try {
+    updatedUser = await User.updateUser(req.body); // Send back user object from the session to validate
+  } catch (e) {
+    return res.status(409).json({ success: false, error: e.message });
+  }
+  res.status(201).json({ success: true, updatedUser });
 });
 
 
