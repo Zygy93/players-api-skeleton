@@ -48,7 +48,7 @@ router.put('/user/:userId', async (req, res) => {
   let updatedUser;
   console.log(req.body);
   try {
-    updatedUser = await User.updateUser(req.body); // Send back user object from the session to validate
+    updatedUser = await User.updateUser(req.body);
   } catch (e) {
     return res.status(409).json({ success: false, error: e.message });
   }
