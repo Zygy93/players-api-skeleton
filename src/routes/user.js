@@ -46,9 +46,9 @@ router.post('/login', validateLogin, async (req, res) => {
 
 router.put('/user/:userId', async (req, res) => {
   let updatedUser;
-  console.log(req.params.userId, req.body);
+  console.log(req.body.first_name, req.body.last_name, req.params.userId);
   try {
-    updatedUser = await User.updateUser(req.params.userId, req.body);
+    updatedUser = await User.updateUser(req.body.first_name, req.body.last_name, req.params.userId);
     console.log(updatedUser);
   } catch (e) {
     console.log(e);
