@@ -54,7 +54,7 @@ router.put('/user/:userId', async (req, res) => {
     console.log(e);
     return res.status(409).json({ success: false, error: e.message });
   }
-  res.status(200).json({ success: true, User });
+  res.status(200).json({ success: true, updatedUser });
 });
 
 
