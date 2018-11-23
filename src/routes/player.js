@@ -6,7 +6,6 @@ const router = new Router();
 
 router.post('/players', validatePlayer, async (req, res) => {
   const user = req.user;
-  console.log(req.user, req.body, req.params);
   let player;
   try {
     player = await Player.create({ ...req.body, created_by: user.userId });
