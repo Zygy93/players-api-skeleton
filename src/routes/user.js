@@ -48,11 +48,13 @@ router.put('/user/:userId', async (req, res) => {
   let user;
   try {
     user = await User.updateUser(req.body.first_name, req.body.last_name, req.params.userId);
+    //We're sending the first_name, last_name, and userID to update the user
   } catch (e) {
-    console.log(e);
     return res.status(409).json({ success: false, error: e.message });
+    //returns error
   }
   res.status(200).json({ success: true, user });
+  //Sends us back the updated User's information
 });
 
 

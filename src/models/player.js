@@ -14,6 +14,19 @@ const Player = {
 
   remove: async function() {
     await query(`DELETE FROM ${ table }`);
+  },
+
+  deleteById: async function(ids) {
+    const { playerId, userId } = ids;
+    // Get player by id and if the player was created by the requesting user
+    const players = await query(`SELECT * FROM ${ table } WHERE id = $1 AND created_by = $2`, [playerId, userId]);
+    // If a player isn't returned, we know that one of the conditions weren't
+    // met and we should throw an error.
+    if (players.length === 0) {
+      throw new Error('Unable to delete specified player!');
+    }
+    // Delete the player from table by ID
+    await query(`DELETE FROM ${ table } WHERE id = $1`, [playerId]);
   }
 };
 
