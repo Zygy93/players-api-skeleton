@@ -4,5 +4,16 @@ const { validatePlayer } = require('../modules/validate');
 
 const router = new Router();
 
+router.post('/players', validatePlayer, async (req, res) => {
+  const user = req.user;
+  console.log(req.user, req.body, req.params);
+  let player;
+  try {
+    player = await Player.create({ ...req.body, created_by: user.userId });
+  } catch (e) {
+    return res.status(409).json({ success: false, error: e.message });
+  }
+  res.status(201).json({ success: true, player });
+});
 
 module.exports = router;
