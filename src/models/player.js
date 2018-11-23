@@ -27,6 +27,15 @@ const Player = {
     }
     // Delete the player from table by ID
     await query(`DELETE FROM ${ table } WHERE id = $1`, [playerId]);
+  },
+
+  findById: async function(playerId) {
+    const players = await query(`SELECT * FROM ${ table } WHERE id = $1`, [playerId]);
+    return players[0];
+  },
+
+  findPlayersForUser: async function(userId) {
+    return await query(`SELECT * FROM ${ table } WHERE created_by = $1`, [userId]);
   }
 };
 

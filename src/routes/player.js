@@ -26,6 +26,11 @@ router.use('/players/:id', async (req, res) => {
   res.status(200).json({ success: true });
 });
 
+router.get('/players', async (req, res) => {
+  const user = req.user;
+  const players = await Player.findPlayersForUser(user.userId);
+  res.status(200).json({ success: true, players });
+});
 
 
 module.exports = router;
