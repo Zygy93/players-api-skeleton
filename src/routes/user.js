@@ -45,10 +45,10 @@ router.post('/login', validateLogin, async (req, res) => {
 });
 
 router.put('/user/:userId', async (req, res) => {
-  let updatedUser = req.body;
-  console.log(updatedUser);
+  let updatedUser;
+  console.log(req.params.userId, req.body);
   try {
-    updatedUser = await User.updateUser(req.body);
+    updatedUser = await User.updateUser(req.params.userId, req.body);
     console.log(updatedUser);
   } catch (e) {
     console.log(e);
