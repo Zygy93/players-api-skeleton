@@ -45,14 +45,14 @@ router.post('/login', validateLogin, async (req, res) => {
 });
 
 router.put('/user/:userId', async (req, res) => {
-  let updatedUser;
+  let user;
   try {
-    updatedUser = await User.updateUser(req.body.first_name, req.body.last_name, req.params.userId);
+    user = await User.updateUser(req.body.first_name, req.body.last_name, req.params.userId);
   } catch (e) {
     console.log(e);
     return res.status(409).json({ success: false, error: e.message });
   }
-  res.status(200).json({ success: true, updatedUser });
+  res.status(200).json({ success: true, user });
 });
 
 
