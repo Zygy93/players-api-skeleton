@@ -19,7 +19,38 @@ TL;DR:
 4. Send us your code
 5. Win
 
+## Built With
+
+```
+,___________,         .----------,   Request     .-------------,       .----------.
+|___________|       ,'_________,'|   -> | ->   ,'____________,'|      ( ~--------~ )
+|           |      |           | |      |      | Node        | |      | Pg-Promise |
+|           |      |           | |      |      | Express     | |      |            |
+|           |      |           | |      |      | Body-parser | |      |            |
+|           | <--- |           | |      |      | Bcrypt      | | <--- |            |
+|           |      |           | |      |      | Jsonwebtoken| |      |            |
+|           |      |           | |      |      |             | |      |            |
+|           |      |           | ;   <- | <-   |             | ;      | ~--------~ |
+|___________|      |___________|'   Response   |_____________|'       `.__________.'
+   Client           Client Logic             Server & Middleware        Database
+           *Front End*                                       *Back End*
+```
+### Prerequisites
+
+- [Node.js](https://nodejs.org/en/)
+- [Pg-Promise](https://github.com/vitaly-t/pg-promise)
+  - The database name will have to be called "postgres".
+  - Please see the database.sql file, it will give you the queries you need to create the database tables. If you select all the tables at once, you should be able to execute all of them at once.
+- [Postico](https://eggerapps.at/postico/)
+  - I recommend using this PostgreSQL GUI client to interact with the database
+
+### Installing
+
+- Once you clone the repo, you will want to run `npm i` to install all the modules so that the repo should function properly.
+
 ## Tests
+
+- DO NOT UPDATE CHAI and MOCHA or it WILL FAIL all the tests.
 
 ```
 npm test
