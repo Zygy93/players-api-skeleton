@@ -16,5 +16,5 @@ app.use((err, req, res, next) => {
   }
   // Fallback to internal server error
   res.status(err.status || 500).send();
-});//We need to figure out how to send a 403 if auth fails, so this is the solution
+});// We need to figure out how to send a 403 if auth fails
 module.exports = app;

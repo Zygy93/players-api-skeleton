@@ -1,9 +1,11 @@
 
 const { check, validationResult } = require('express-validator/check');
-//express-validator is a set of express.js middlewares that wraps validator.js validator and sanitizes functions.
+//express-validator is a set of express.js middlewares that wraps validator.js validator and sanitizes functions
 //The exists() method only checks that one of the items in the array
 //The trim() method removes whitespace from both sides of a string
+// Check validates the input and report any errors before creating the user:
 
+//Validates a User
 const validateUser = [
   check('first_name').exists().trim(),
   check('last_name').exists().trim(),
@@ -15,6 +17,7 @@ const validateUser = [
   isValid
 ];
 
+//Validates a player
 const validatePlayer = [
   check('first_name').exists().trim(),
   check('last_name').exists().trim(),
@@ -23,12 +26,14 @@ const validatePlayer = [
   isValid
 ];
 
+//Validates a login attempt
 const validateLogin = [
   check('email').exists().trim(),
   check('password').exists().trim(),
   isValid
 ];
 
+//Makes the validation request valid
 function isValid(req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -38,3 +43,4 @@ function isValid(req, res, next) {
 }
 
 module.exports = { validateUser, validatePlayer, validateLogin };
+//Export validation

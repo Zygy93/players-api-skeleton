@@ -4,3 +4,4 @@ module.exports = {
   User,
   Player
 };
+//Exports the User and Player API

@@ -20,7 +20,7 @@ router.post('/user', validateUser, async (req, res) => {
   // Issue token
   const token = signToken(user.id);
   res.status(201).json({ success: true, user, token });
-});
+});// End POST request
 
 // Handles login form authenticate/login POST
 router.post('/login', validateLogin, async (req, res) => {
@@ -30,20 +30,24 @@ router.post('/login', validateLogin, async (req, res) => {
   const user = await User.findUserByEmail(email);
   if (!user) {
     return res.status(401).json({ success: false });
+    // If it's not the correct user, it sends a failes status
   }
   const hash = user.password;
-  // Compare plaintext password with stored hash
   const isValidPassword = await bcrypt.compare(textPassword, hash);
+  // Compares the plaintext password with stored hash
   if (!isValidPassword) {
     return res.status(401).json({ success: false });
+    // If the password is incorrect, it sends a failed status
   }
-  // Issue token
   const token = signToken(user.id);
-  // Remove password for response
+  //Issues the token
   delete user.password;
+  //Removes the password from the API
   res.status(200).json({ success: true, user, token });
-});
+  //Send us a successful respoonse, user and token
+});//End POST request
 
+// Handles the put request where we update the user's first and last name
 router.put('/user/:userId', async (req, res) => {
   let user;
   try {
@@ -54,9 +58,8 @@ router.put('/user/:userId', async (req, res) => {
     //returns error
   }
   res.status(200).json({ success: true, user });
-  //Sends us back the updated User's information
-});
-
-
+  //Sends us back the User's updated information
+});//End Put Request
 
 module.exports = router;
+//Exports user router

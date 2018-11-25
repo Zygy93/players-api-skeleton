@@ -8,8 +8,9 @@ const options = {
 };
 
 function signToken(userId) {
-  userId.toString();
   return sign({ userId, permissions: 'admin' }, secret);
 }
+//Attaches the userId to the sign token and giving admin authorization
 
 module.exports = { jwt: jwt(options).unless({ path: ['/api/user', '/api/login', /\/api\/user\/\d*/] }), signToken };
+// Exporting the JWT

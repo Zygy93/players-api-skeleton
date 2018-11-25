@@ -25,18 +25,20 @@ const Player = {
     if (players.length === 0) {
       throw new Error('Unable to delete specified player!');
     }
-    // Delete the player from table by ID
+    // Delete the player from table by Id
     await query(`DELETE FROM ${ table } WHERE id = $1`, [playerId]);
-  },
+  }, // End Query
 
+  // This is where we find a player by Id
   findById: async function(playerId) {
     const players = await query(`SELECT * FROM ${ table } WHERE id = $1`, [playerId]);
     return players[0];
-  },
+  }, // End QUery
 
+  // This is where we find the player's information created by the user
   findPlayersForUser: async function(userId) {
     return await query(`SELECT * FROM ${ table } WHERE created_by = $1`, [userId]);
-  }
+  }// End Query
 };
 
 module.exports = Player;
